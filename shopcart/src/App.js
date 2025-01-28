@@ -43,23 +43,47 @@ class App extends React.Component {
   }
 
 
-  renderProducts(products) {
+  renderProductslist(products) {
     return (
-      <div>
-        {products.map(productlist => 
-             <div key={productlist.id}>
-                 
+      <div className="product">
+        {products.map(product => (
+             <div key={product.id} className="item">
+                <h3>{product.desc}</h3>
+                <img src={product.image} className="image" />
+                <span>Quantity: <input
+                  value={product.value}
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    this.setState(prevState => ({
+                      products: prevState.products.map(p => 
+                        p.id === product.id ? { ...p, value: newValue } : p
+                      )
+                    }));
+                  }}
+                /></span>
              </div>)
-        }
+        )}
+      </div>
+    );
+  }
+
+  renderTotal(products) {
+    const total = products.reduce((acc, product) => acc + parseInt(product.value || 0), 0);
+    return (
+      <div className="header">
+        <h1>Shop To React</h1>
+        <div>
+          <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" /> {total} Items
+        </div>
       </div>
     );
   }
 
   render() {
     return (
-      <div>
-        <h1></h1> {/* This is the title */}
-          {this.renderProducts(this.state.products)}
+      <div className="App">
+        {this.renderTotal(this.state.products)}
+        {this.renderProductslist(this.state.products)}
       </div>
     );
   }
