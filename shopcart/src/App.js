@@ -5,6 +5,8 @@ import DisplayProducts from "./DisplayProducts";
 import Navbar from "./Navbar";
 import ProductModal from "./ProductModal";
 import Cart from "./Cart";
+import SignIn from "./SignIn";
+import CheckOut from "./CheckOut";
 import "./App.css";
 
 class App extends React.Component {
@@ -89,6 +91,8 @@ class App extends React.Component {
             <Route path="/cart" element={
               <Cart products={this.state.products} />
             } />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/checkout" element={<CheckOut />} />
           </Routes>
           
           {this.state.showModal && (
